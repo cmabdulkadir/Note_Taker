@@ -17,6 +17,8 @@ The following must be installed to run this application: `npm i`
 
 # Usage
 
+![Gif demo note-taker](note-demo.gif)
+
 First run node server.js in intergrated terminal which will then let you know `App listening localhost: 4000`. You will then go to the browers of your choice and type `localhost:4000` in the url. This will direct you to the note taking application.
 
 Here is a link to the deployed site on [heroku]
