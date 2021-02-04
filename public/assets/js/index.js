@@ -56,7 +56,7 @@ const handleNoteSave = function () {
     text: $noteText.val()
   };
 
-  saveNote(newNote)
+  saveNote(newNote);
     getAndRenderNotes();
     renderActiveNote();
   
@@ -106,17 +106,18 @@ const renderNoteList = function(notes) {
   $noteList.empty();
 
   const noteListItems = [];
+
 for (let i = 0; i < notes.length; i++){
   let note = notes[i];
 
-  const $li = $("<li class='list-group-item'>").data(note);
+  const $li = $("<li class= 'list-group-item'>").data(note);
     $li.data('id', i);
 
     let $span = $("<span>").text(note.title);
     let $delBtn = $("<i class='fas fa-trash-alt float-right text-danger delete-note' data-id="+ i +">");
 
     $li.append($span, $delBtn);
-    noteListItems.pudh($li);
+    noteListItems.push($li);
   }
 
     $noteList.append(noteListItems);
