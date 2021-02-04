@@ -1,8 +1,8 @@
 const express = require("express");
-const app = express();
 const fs = require("fs");
 const path = require("path");
 
+const app = express();
 const PORT = process.env.PORT || 4000;
 
 // sets up the express app to handle data parsing

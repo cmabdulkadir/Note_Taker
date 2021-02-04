@@ -9,7 +9,7 @@ module.exports = function(app) {
         // API ROUTES    
         // api/notes get route
         app.get("/api/notes", function(req, res) {
-            return res.json(notes);
+            res.json(notes);
         });
 
         // api/notes post route
