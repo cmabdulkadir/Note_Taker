@@ -8,35 +8,35 @@ const $noteList = $(".list-container .list-group");
 let activeNote = {};
 
 // A function for getting all notes from the db
-const getNotes = () => {
+const getNotes = function() {
   return $.ajax({
     url: "/api/notes",
-    method: "GET",
+    method: "GET"
   });
 };
 
 // A function for saving a note to the db
-const saveNote = (note) => {
+const saveNote = function(note) {
   return $.ajax({
     url: "/api/notes",
     data: note,
-    method: "POST",
+    method: "POST"
   });
 };
 
 // A function for deleting a note from the db
-const deleteNote = (id) => {
+const deleteNote = function(id) {
   return $.ajax({
     url: "api/notes/" + id,
-    method: "DELETE",
-  });
+    method: "DELETE"
+  })
 };
 
 // If there is an activeNote, display it, otherwise render empty inputs
-const renderActiveNote = () => {
+const renderActiveNote = function() { 
   $saveNoteBtn.hide();
 
-  if (activeNote.id) {
+  if (typeof activeNote.id === "number") {
     $noteTitle.attr("readonly", true);
     $noteText.attr("readonly", true);
     $noteTitle.val(activeNote.title);
@@ -53,13 +53,13 @@ const renderActiveNote = () => {
 const handleNoteSave = function () {
   const newNote = {
     title: $noteTitle.val(),
-    text: $noteText.val(),
+    text: $noteText.val()
   };
 
-  saveNote(newNote).then(() => {
+  saveNote(newNote)
     getAndRenderNotes();
     renderActiveNote();
-  });
+  
 };
 
 // Delete the clicked note
@@ -67,16 +67,16 @@ const handleNoteDelete = function (event) {
   // prevents the click listener for the list from being called when the button inside of it is clicked
   event.stopPropagation();
 
-  const note = $(this).parent(".list-group-item").data();
+  const note = $(this).data('id');
 
-  if (activeNote.id === note.id) {
+  if (activeNote.id === note) {
     activeNote = {};
   }
 
-  deleteNote(note.id).then(() => {
+  deleteNote(note)()
     getAndRenderNotes();
     renderActiveNote();
-  });
+  
 };
 
 // Sets the activeNote and displays it
@@ -102,17 +102,26 @@ const handleRenderSaveBtn = function () {
 };
 
 // Render's the list of note titles
-const renderNoteList = (notes) => {
+const renderNoteList = function(notes) {
   $noteList.empty();
 
   const noteListItems = [];
+for (let i = 0; i < notes.length; i++){
+  let note = notes[i];
 
-  // Returns jquery object for li with given text and delete button
-  // unless withDeleteButton argument is provided as false
-  const create$li = (text, withDeleteButton = true) => {
-    const $li = $("<li class='list-group-item'>");
-    const $span = $("<span>").text(text);
-    $li.append($span);
+  const $li = $("<li class='list-group-item'>").data(note);
+    $li.data('id', i);
+
+    const $span = $("<span>").text(note.title);
+    let $delBtn = $("<i class='fas fa-trash-alt float-right text-danger delete-note' data-id="+ i +">");
+
+    $li.append($span, $delBtn);
+
+}
+  
+  
+  
+  
 
     if (withDeleteButton) {
       const $delBtn = $(
