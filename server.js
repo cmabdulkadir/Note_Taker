@@ -1,21 +1,21 @@
 const express = require("express");
+const app = express();
 const fs = require("fs");
 const path = require("path");
 
-// Initialize express app
-const app = express();
-const PORT = process.env.PORT || 5500;
+const PORT =process.env.PORT || 4001;
 
-// Setup data parsing
-app.use(express.urlencoded({extended: true}));
+// sets up the express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// Require route file
-require('./routes/routes')(app);
+// Required route file
+require("./routes/routes.js")(app);
 
-// setup listner
+// listener to start the server
 app.listen(PORT, function(){
-console.log("App listening on PORT: " + PORT);
-
+    console.log("App listening localhost: " + PORT)
 })
+
+
